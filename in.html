@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Document
+    </title>
+</head>
+<body>
+    <nav>
+        <div calss="navbar-mainlogo">
+            <img class="navbar-n" src="https://cdn1.iconfinder.com/data/icons/capsocial/500/iconfinder-512.png" alt="logo">
+        </div>
+        <div class="navbar-mainhead">
+            <h1><center>CODECLAUSE INTERNSHIP</center></h1>
+        </div>
+        <div class="navbar-mainsocials">
+            <a href="https://www.linkedin.com/in/aasim-ali-jamadar-a067a9253/">
+                <img class="navbar-n" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png">
+            </a>
+            <a href="https://www.instagram.com/aasim_jamadar/">
+                <img class="navbar-n" src="https://cdn2.iconfinder.com/data/icons/social-media-applications/64/social_media_applications_3-instagram-256.png">
+            </a>
+            <a href="https://www.facebook.com/aasimali.jamadar.9">
+                <img class="navbar-n" src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Facebook_colored_svg_copy-256.png">
+            </a>
+        </div>
+    </nav>
+<br>
+<center><h1><u>Task 1 : URL Shortener</u></h1></center>
+<div class="main">
+    <input type="text" name="" id="longurl" placeholder="Enter your link to be shortened">
+    <br>
+    <button id="shorten">Shorten</button>
+    <br><br>
+    <input type="text" name="" id="shorturl" placeholder="shorten link will appear here">
+    <br>
+    <button id="copy">Copy link</button>
+</div>
+<style>
+    button{
+        width:200px;
+        height:40px;
+        transition: transform 0.4s ease;
+        background-color: blanchedalmond;
+        color: darkblue;
+    }
+    button:hover{
+        transform: scale(1.5);
+    }
+    .main{
+        border-radius: 15px;
+        padding: 10px;
+        height:450px;
+        align-items: center;
+        justify-content: center;
+        display:flex;
+        flex-direction: column;
+        background-color: cadetblue;
+    }
+    input{
+        width:800px;
+        height:50px;
+        border-radius: 20px;
+        background-color: rgb(221, 236, 199);
+        font-size: 20px;
+        font-weight: bold;
+        color:rgb(12, 10, 10);
+    }
+    *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+    }
+    nav{
+        margin:0;
+        display:flex;
+        justify-content: space-between;
+        background-color: rgb(120, 151, 209);
+        padding:15px;
+        overflow:hidden;
+        align-items: center;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+    }
+    .navbar-mainlogo{
+        padding-left: 35px;
+    }
+    .navbar-mainhead{
+        font-family: 'Times New Roman', Times, serif;
+        padding-left: 155px;
+        transition: transform 0.3s ease;
+        color:azure;
+        font-size: 21px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+    .navbar-mainhead:hover{
+        transform: scale(1.5);
+    }
+    .navbar-mainsocials{
+        padding:15px;
+        padding-right: 50px;
+        display: flex;
+        justify-content: space-between;   
+    }
+    .navbar-n{
+        padding: 2px;
+        border-radius: 50%;
+        width:40px;
+        height:40px;
+        transition:transform 0.3s ease;
+    }
+    .navbar-n:hover{
+        border-radius: 50%;
+        transform:scale(1.5);
+    }
+</style>
+<script>
+    let btn=document.getElementById('shorten');
+    btn.addEventListener('click',short);
+    async function short(){
+        let longurl=document.getElementById('longurl').value;
+        let shorturl=document.getElementById('shorturl');
+
+        const result =await fetch(`https://api.shrtco.de/v2/shorten?url=${longurl}`);
+        const data=await result.json();
+        try{
+            shorturl.value=data.result.short_link2;
+        }
+        catch(error){
+            shorturl.value='Error: Link not supported';
+        }
+    }
+    let copy=document.getElementById('copy');
+    copy.onclick=()=>{
+        shorturl.select();
+        window.navigator.clipboard.writeText(shorturl.value);
+    }
+</script>
+</body>
+</html>
